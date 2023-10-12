@@ -1,0 +1,11 @@
+#X3D V3.3 utf8
+
+Transform {
+    rotation 1 0 0 0.5
+    translation 0 0 -6
+    children Shape{
+        geometry Text {
+            string["hello_world"]
+        }
+    }
+}

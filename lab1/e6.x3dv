@@ -1,0 +1,12 @@
+#X3D V3.3 utf8
+
+Transform {
+    translation 1 4 -1
+    rotation 1 0 0 0.4
+    children Shape{
+        geometry Cylinder { 
+            radius 2
+            height 6
+        }
+    }
+}

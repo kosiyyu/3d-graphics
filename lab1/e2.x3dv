@@ -1,0 +1,106 @@
+#X3D V3.3 utf8
+
+Transform {
+    translation 0 0 0
+
+    children Shape{
+        geometry Text {
+            string["AAAAAAAAA"]
+            fontStyle FontStyle {
+                family "SERIF"
+                horizontal TRUE
+                justify "BEGIN"
+                language ""
+                leftToRight FALSE
+                size 1.0
+                spacing 1.0
+                style "PLAIN"
+                topToBottom TRUE
+            }
+        }
+    }
+}
+
+Transform {
+    translation 0 5 0
+
+    children Shape{
+        geometry Text {
+            string["AAAAAAAAA"]
+            fontStyle FontStyle {
+                family "SERIF"
+                horizontal FALSE
+                justify "BEGIN"
+                language ""
+                leftToRight TRUE
+                size 1.0
+                spacing 1.0
+                style "PLAIN"
+                topToBottom TRUE
+            }
+        }
+    }
+}
+
+Transform {
+    translation 0 10 0
+
+    children Shape{
+        geometry Text {
+            string["AAAAAAAAA"]
+            fontStyle FontStyle {
+                family "SERIF"
+                horizontal TRUE
+                justify "BEGIN"
+                language ""
+                leftToRight TRUE
+                size 1.0
+                spacing 1.0
+                style "PLAIN"
+                topToBottom FALSE
+            }
+        }
+    }
+}
+
+Transform {
+    translation 0 15 0
+
+    children Shape{
+        geometry Text {
+            string["AAAAAAAAA"]
+            fontStyle FontStyle {
+                family "SERIF"
+                horizontal TRUE
+                justify "BEGIN"
+                language ""
+                leftToRight TRUE
+                size 5.0
+                spacing 1.0
+                style "PLAIN"
+                topToBottom TRUE
+            }
+        }
+    }
+}
+
+Transform {
+    translation 0 20 0
+
+    children Shape{
+        geometry Text {
+            string["AAAAAAAAA"]
+            fontStyle FontStyle {
+                family "SERIF"
+                horizontal TRUE
+                justify "BEGIN"
+                language ""
+                leftToRight TRUE
+                size 0.5
+                spacing 1.0
+                style "PLAIN"
+                topToBottom TRUE
+            }
+        }
+    }
+}

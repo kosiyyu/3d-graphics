@@ -1,0 +1,35 @@
+#X3D V3.3 utf8
+
+Transform{
+    translation 0 2 0
+    children Shape {
+        appearance Appearance {
+            texture ImageTexture {
+                url ["diamond_ore.jpg"]
+            }
+            textureTransform TextureTransform {
+                translation 1 1
+            }
+        }
+        geometry Box { 
+            size 4 4 4
+        }
+    }
+}
+
+Transform{
+    translation 7 7 7
+    children Shape {
+        appearance Appearance {
+            texture ImageTexture {
+                url ["image.jpg"]
+            }
+            textureTransform TextureTransform {
+                translation 1 1
+            }
+        }
+        geometry Box { 
+            size 4 4 4
+        }
+    }
+}
