@@ -1,0 +1,64 @@
+#X3D V3.3 utf8
+
+DEF CustomBox Shape{
+    geometry Box {  
+        size 1 1 4
+    }
+    appearance Appearance {
+        material Material {
+            emissiveColor 0.25 0.25 0.25
+            diffuseColor 0.75 0.75 0.75
+        } 
+    }
+}
+
+Transform {
+    translation 1 1 0
+    children [USE CustomBox]
+}
+
+Transform {
+    translation 2 2 0
+    children [USE CustomBox]
+}
+
+Transform {
+    translation 3 3 0
+    children [USE CustomBox]
+}
+
+Transform {
+    translation 4 4 0
+    children [USE CustomBox]
+}
+
+Transform {
+    translation 5 5 0
+    children [USE CustomBox]
+}
+
+Transform {
+    translation 1 0 0
+    children [USE CustomBox]
+}
+
+Transform {
+    translation 2 1 0
+    children [USE CustomBox]
+}
+
+Transform {
+    translation 3 2 0
+    children [USE CustomBox]
+}
+
+Transform {
+    translation 4 3 0
+    children [USE CustomBox]
+}
+
+Transform {
+    translation 5 4 0
+    children [USE CustomBox]
+}
+

@@ -1,0 +1,24 @@
+#X3D V3.3 utf8
+Transform {
+    translation 0 0 0
+    children Shape{
+        geometry Sphere { 
+            radius 2
+        }
+        appearance Appearance {
+            material Material {
+                emissiveColor 0.25 0.25 0.25
+                diffuseColor 0.75 0.75 0.75
+            } 
+        }
+    }
+}
+
+SpotLight {
+    color 0 0 1
+    direction -1 0 0
+    intensity 1
+    location 10 0 0
+    on TRUE
+    radius 100
+}
