@@ -1,0 +1,13 @@
+#X3D V3.3 utf8
+
+DEF Base Shape{
+    geometry Box {  
+        size 50 1 50
+    }
+    appearance Appearance {
+        material Material {
+            emissiveColor 0 1 0
+            diffuseColor 0.75 0.75 0.75
+        } 
+    }
+}

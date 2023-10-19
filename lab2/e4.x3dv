@@ -1,0 +1,40 @@
+#X3D V3.3 utf8
+Transform {
+    translation 0 0 0
+    children Shape{
+        geometry Cone { 
+            bottomRadius 2.5
+            height 6     
+        }
+        appearance Appearance {
+            material Material {
+            emissiveColor 0.25 1 0.25
+            diffuseColor 0.75 0.75 0.75
+            } 
+        }
+    }
+}
+
+Viewpoint {
+    fieldOfView 0.785398
+    jump TRUE
+    orientation 0 1 0 0
+    position 0 0 10
+    description "front"  
+}
+
+Viewpoint {
+    fieldOfView 0.785398
+    jump TRUE
+    orientation 1 0 0 1.570796
+    position 0 -10 0
+    description "under"
+}
+
+Viewpoint {
+    fieldOfView 0.785398
+    jump TRUE
+    orientation 0 -1 0 1.570796
+    position -10 0 0
+    description "left"  
+}

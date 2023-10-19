@@ -61,4 +61,3 @@ Transform {
     translation 5 4 0
     children [USE CustomBox]
 }
-
