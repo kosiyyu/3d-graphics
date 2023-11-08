@@ -5,3 +5,4 @@ Inline { url ["viewpoints.x3dv"] }
 Inline { url ["button.x3dv"] }
 Inline { url ["new_word.x3dv"] }
 Inline { url ["gate.x3dv"] }
+Inline { url ["torch.x3dv"] }

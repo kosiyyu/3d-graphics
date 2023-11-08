@@ -1,0 +1,60 @@
+#X3D V3.3 utf8
+
+DEF SpotLightTorch SpotLight {
+    color 0 0 1
+    direction -1 0 0
+    intensity 1
+    location 0 3 0
+    on TRUE
+    radius 100
+}
+
+DEF Sensor TimeSensor {
+    cycleInterval 1
+    enabled TRUE
+    loop TRUE
+}
+
+DEF Interpolator ColorInterpolator {
+    key [0, 0.5, 1]
+    keyValue [1 0 0, 1 0.65 0, 1 1 0]
+}
+
+ROUTE Sensor.fraction_changed TO Interpolator.set_fraction
+ROUTE Interpolator.value_changed TO SpotLightTorch.set_color
+
+DEF Light Transform {
+    scale 0.1 0.2 0.1
+    translation 0 3 0
+    children [
+        Shape {
+            geometry Box {  
+                size 1 1 1
+            }
+            appearance Appearance {
+                material Material {
+                    emissiveColor 1 1 0
+                    diffuseColor 0.75 0.75 0.75
+                }
+            }
+        }
+    ]
+}
+
+Transform {
+    scale 0.1 0.8 0.1
+    translation 0 2.5 0
+    children [
+        Shape {
+            geometry Box {  
+                size 1 1 1
+            }
+            appearance Appearance {
+                material Material {
+                    emissiveColor 0.44 0.26 0.13
+                    diffuseColor 0.75 0.75 0.75
+                }
+            }
+        }
+    ]
+}
