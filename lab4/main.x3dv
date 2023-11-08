@@ -2,6 +2,8 @@
 Inline { url ["base.x3dv"] }
 Inline { url ["viewpoints.x3dv"] }
 Inline { url ["walls.x3dv"] }
+Inline { url ["button.x3dv"] }
+Inline { url ["new_word.x3dv"] }
 
 # Gate
 
