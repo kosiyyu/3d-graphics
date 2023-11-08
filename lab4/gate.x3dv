@@ -1,0 +1,56 @@
+#X3D V3.3 utf8
+
+DEF Button Transform {
+    scale 0.5 0.25 0.25
+    translation 0 1 5
+    children [
+        Shape {
+            translation 0 0 0
+            geometry Box {  
+                size 1 1 1
+            }
+            appearance Appearance {
+                material Material {
+                    emissiveColor 0.6 0 1
+                    diffuseColor 0.25 0.25 0.25
+                } 
+            }
+        }
+        DEF MyTouchSensor TouchSensor {
+            enabled TRUE
+        }
+    ]
+}
+
+DEF Gate Transform {
+    translation -1 1 4.5
+    scale 1 1 1
+    children [
+        Shape{
+            geometry Box {  
+                size 1 1 1
+            }
+            appearance Appearance {
+                material Material {
+                    emissiveColor 0.25 0.25 0.25
+                    diffuseColor 0.75 0.75 0.75
+                } 
+            }
+        }
+    ]
+}
+
+DEF Sensor TimeSensor {
+    cycleInterval 5
+    enabled FALSE
+    loop TRUE
+}
+
+DEF Inter PositionInterpolator{
+    key[ 0, 0.5, 1]
+    keyValue[-1 1 4.5, -1 2 4.5, -1 1 4.5]
+}
+
+ROUTE Sensor.fraction_changed TO Inter.set_fraction
+ROUTE Inter.value_changed TO Gate.set_translation
+ROUTE MyTouchSensor.isActive TO Sensor.set_enabled

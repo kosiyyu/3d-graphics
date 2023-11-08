@@ -8,7 +8,7 @@ Anchor {
             scale 0.5 0.25 0.25
             translation -4 1 -4
             children [
-                DEF Base Shape {
+                Shape {
                 translation 0 0 0
                 geometry Box {  
                     size 1 1 1

@@ -1,28 +1,7 @@
 #X3D V3.3 utf8
 Inline { url ["base.x3dv"] }
-Inline { url ["viewpoints.x3dv"] }
 Inline { url ["walls.x3dv"] }
+Inline { url ["viewpoints.x3dv"] }
 Inline { url ["button.x3dv"] }
 Inline { url ["new_word.x3dv"] }
-
-# Gate
-
-DEF Gate Transform {
-    translation -1 1 4.5
-    scale 1 1 1
-    children [USE CustomBox]
-}
-
-DEF Sensor TimeSensor {
-    cycleInterval 1
-    enabled TRUE
-    loop TRUE
-}
-
-DEF Inter PositionInterpolator{
-    key[ 0, 0.5, 1]
-    keyValue[-1 1 4.5, -1 2 4.5, -1 1 4.5]
-}
-
-ROUTE Sensor.fraction_changed TO Inter.set_fraction
-ROUTE Inter.value_changed TO Gate.set_translation
+Inline { url ["gate.x3dv"] }
