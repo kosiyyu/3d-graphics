@@ -1,0 +1,33 @@
+#X3D V3.3 utf8
+
+Viewpoint {
+    fieldOfView 0.785398
+    jump TRUE
+    orientation 1 0 0 -1.570796
+    position 0 20 0
+    description "above"
+}
+
+Viewpoint {
+    fieldOfView 0.785398
+    jump TRUE
+    orientation 0 1 0 0
+    position 0 0 20
+    description "front"
+}
+
+Viewpoint {
+    fieldOfView 0.785398
+    jump TRUE
+    orientation 1 0 0 1.570796
+    position 0 -20 0
+    description "under"
+}
+
+Viewpoint {
+    fieldOfView 0.785398
+    jump TRUE
+    orientation 0 -1 0 1.570796
+    position -20 0 0
+    description "left"  
+}
