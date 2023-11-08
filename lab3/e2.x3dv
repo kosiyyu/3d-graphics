@@ -1,0 +1,152 @@
+#X3D V3.3 utf8
+
+#BASE
+
+Inline {
+    url ["base.x3dv"]
+}
+
+Transform {
+    translation 0 1 0
+    scale 1 1 10
+    children [
+            DEF CustomBox Shape{
+            geometry Box {  
+                size 1 1 1
+            }
+            appearance Appearance {
+                material Material {
+                    emissiveColor 0.25 0.25 0.25
+                    diffuseColor 0.75 0.75 0.75
+                } 
+            }
+        }
+    ]
+}
+
+#WALLS
+
+Transform {
+    scale 1 1 6
+    translation -2 1 2 
+    children [USE CustomBox]
+}
+
+Transform {
+    translation -2 1 -2.5 
+    children [USE CustomBox]
+}
+
+Transform {
+    scale 1 1 2
+    translation -3 1 -3 
+    children [USE CustomBox]
+}
+
+Transform {
+    scale 7 1 1
+    translation -4 1 -4.5 
+    children [USE CustomBox]
+}
+
+Transform {
+    translation -9 1 0
+    scale 1 1 10
+    children [USE CustomBox]
+}
+
+Transform {
+    translation -5 1 -2
+    scale 1 1 4
+    children [USE CustomBox]
+}
+
+Transform {
+    translation -6.5 1 -0.5
+    scale 2 1 1
+    children [USE CustomBox]
+}
+
+Transform {
+    translation -4 1 -0.5
+    scale 1 1 1
+    children [USE CustomBox]
+}
+
+Transform {
+    translation -7.5 1 -2.5
+    scale 2 1 1
+    children [USE CustomBox]
+}
+
+Transform {
+    translation -5.5 1 4.5
+    scale 6 1 1
+    children [USE CustomBox]
+}
+
+Transform {
+    translation -4 1 2.5
+    scale 1 1 3
+    children [USE CustomBox]
+}
+
+Transform {
+    translation -7 1 2
+    scale 1 1 2
+    children [USE CustomBox]
+}
+
+Transform {
+    translation -5.5 1 2.5
+    scale 2 1 1
+    children [USE CustomBox]
+}
+
+# Gate
+
+DEF Gate Transform {
+    translation -1 1 4.5
+    scale 1 1 1
+    children [USE CustomBox]
+}
+
+DEF Sensor TimeSensor {
+    cycleInterval 1
+    enabled TRUE
+    loop TRUE
+}
+
+DEF Inter PositionInterpolator{
+    key[ 0, 0.5, 1]
+    keyValue[-1 1 4.5, -1 2 4.5, -1 1 4.5]
+}
+
+ROUTE Sensor.fraction_changed TO Inter.set_fraction
+ROUTE Inter.value_changed TO Gate.set_translation
+
+### Viewpoints
+
+Viewpoint {
+    fieldOfView 0.785398
+    jump TRUE
+    orientation 0 1 0 0
+    position 0 0 10
+    description "front"  
+}
+
+Viewpoint {
+    fieldOfView 0.785398
+    jump TRUE
+    orientation 1 0 0 1.570796
+    position 0 -10 0
+    description "under"
+}
+
+Viewpoint {
+    fieldOfView 0.785398
+    jump TRUE
+    orientation 0 -1 0 1.570796
+    position -10 0 0
+    description "left"  
+}

@@ -1,0 +1,59 @@
+#X3D V3.3 utf8
+
+DEF Object1 Transform {
+    children Shape{
+        geometry Sphere { 
+            radius 0.5
+        }
+        appearance Appearance {
+            material Material {
+                emissiveColor 0.25 1 0.25
+                diffuseColor 0.75 0.75 0.75
+            } 
+        }
+    }
+}
+
+DEF Object2 Transform {
+    translation 0 0 0
+    rotation 0 1 0 0
+    children Shape{
+        geometry Box { 
+            size 1 1 1
+        }
+        appearance Appearance {
+            material Material {
+                emissiveColor 1 0.5 1
+                diffuseColor 0.75 0.75 0.75
+            } 
+        }
+    }
+}
+
+DEF Sensor1 TimeSensor {
+    cycleInterval 1
+    enabled TRUE
+    fractionIncreasing TRUE
+    detectAffectedFields TRUE
+    loop TRUE
+    pauseTime 0
+    resumeTime 0
+    startTime 0
+    stopTime 0
+}
+
+DEF Inter1 OrientationInterpolator { 
+    key [0, 0.25, 0.5, 0.75, 1]
+    keyValue [0 1 0 0, 0 1 0 0.785, 0 1 0 1.57, 0 1 0 2.355, 0 1 0 3.14]
+}
+
+ROUTE Sensor1.fraction_changed TO Inter1.set_fraction
+ROUTE Inter1.value_changed TO Object2.set_rotation
+
+DEF Inter2 PositionInterpolator {
+    key [0, 0.25, 0.5, 0.75, 1]
+    keyValue [2 0 0, 0 2 0, -2 0 0, 0 -2 0, 2 0 0]
+}
+
+ROUTE Sensor1.fraction_changed TO Inter2.set_fraction
+ROUTE Inter2.value_changed TO Object1.set_translation

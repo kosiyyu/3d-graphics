@@ -1,0 +1,154 @@
+#X3D V3.3 utf8
+
+DEF Object1 Transform {
+    children Shape{
+        geometry Sphere { 
+            radius 1.5
+        }
+        appearance Appearance {
+            texture ImageTexture {
+                url ["sun.jpg"]
+            }
+            material Material {
+                emissiveColor 0.25 1 0.25
+                diffuseColor 0.75 0.75 0.75
+            } 
+        }
+    }
+}
+
+
+DEF Sensor1 TimeSensor {
+    cycleInterval 1
+    enabled TRUE
+    fractionIncreasing TRUE
+    detectAffectedFields TRUE
+    loop TRUE
+    pauseTime 0
+    resumeTime 0
+    startTime 0
+    stopTime 0
+}
+
+DEF Inter1 OrientationInterpolator { 
+    key [0, 0.25, 0.5, 0.75, 1]
+    keyValue [0 1 0 0, 0 1 0 0.785, 0 1 0 1.57, 0 1 0 2.355, 0 1 0 3.14]
+}
+
+ROUTE Sensor1.fraction_changed TO Inter1.set_fraction
+ROUTE Inter1.value_changed TO Object2.set_rotation
+
+DEF SensorMercury TimeSensor {
+    cycleInterval 1
+    enabled TRUE
+    fractionIncreasing TRUE
+    detectAffectedFields TRUE
+    loop TRUE
+    pauseTime 0
+    resumeTime 0
+    startTime 0
+    stopTime 0
+}
+
+DEF InterMercury PositionInterpolator {
+    key [0, 0.25, 0.5, 0.75, 1]
+    keyValue [4 0 0, 0 4 0, -4 0 0, 0 -4 0, 4 0 0]
+}
+
+DEF Mercury Transform {
+    children Shape{
+        geometry Sphere { 
+            radius 0.5
+        }
+        appearance Appearance {
+            texture ImageTexture {
+                url ["2k_mercury.jpg"]
+            }
+            material Material {
+                emissiveColor 0.25 1 0.25
+                diffuseColor 0.75 0.75 0.75
+            } 
+        }
+    }
+}
+
+ROUTE SensorMercury.fraction_changed TO InterMercury.set_fraction
+ROUTE InterMercury.value_changed TO Mercury.set_translation
+
+##
+
+DEF SensorVenus TimeSensor {
+    cycleInterval 5
+    enabled TRUE
+    fractionIncreasing TRUE
+    detectAffectedFields TRUE
+    loop TRUE
+    pauseTime 0
+    resumeTime 0
+    startTime 0
+    stopTime 0
+}
+
+DEF InterVenus PositionInterpolator {
+    key [0, 0.25, 0.5, 0.75, 1]
+    keyValue [6 0 0, 0 6 0, -6 0 0, 0 -6 0, 6 0 0]
+}
+
+DEF Venus Transform {
+    children Shape{
+        geometry Sphere { 
+            radius 0.5
+        }
+        appearance Appearance {
+            texture ImageTexture {
+                url ["2k_venus_atmosphere.jpg"]
+            }
+            material Material {
+                emissiveColor 0.25 1 0.25
+                diffuseColor 0.75 0.75 0.75
+            } 
+        }
+    }
+}
+
+ROUTE SensorVenus.fraction_changed TO InterVenus.set_fraction
+ROUTE InterVenus.value_changed TO Venus.set_translation
+
+##
+
+DEF SensorEarth TimeSensor {
+    cycleInterval 12
+    enabled TRUE
+    fractionIncreasing TRUE
+    detectAffectedFields TRUE
+    loop TRUE
+    pauseTime 0
+    resumeTime 0
+    startTime 0
+    stopTime 0
+}
+
+DEF InterEarth PositionInterpolator {
+    key [0, 0.25, 0.5, 0.75, 1]
+    keyValue [8 0 0, 0 8 0, -8 0 0, 0 -8 0, 8 0 0]
+}
+
+DEF Earth Transform {
+    children Shape{
+        geometry Sphere { 
+            radius 0.5
+        }
+        appearance Appearance {
+            texture ImageTexture {
+                url ["2k_earth_daymap.jpg"]
+            }
+            material Material {
+                emissiveColor 0.25 1 0.25
+                diffuseColor 0.75 0.75 0.75
+            } 
+        }
+    }
+}
+
+ROUTE SensorEarth.fraction_changed TO InterEarth.set_fraction
+ROUTE InterEarth.value_changed TO Earth.set_translation
