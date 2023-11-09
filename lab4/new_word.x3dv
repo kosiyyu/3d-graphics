@@ -6,8 +6,8 @@ Transform {
     children [
         DEF Base Shape {
         translation 0 0 0
-        geometry Box {  
-            size 1 1 1
+        geometry Sphere {
+            radius 3
         }
         appearance Appearance {
             material Material {

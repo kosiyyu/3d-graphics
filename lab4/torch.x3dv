@@ -33,7 +33,7 @@ DEF Light Transform {
             }
             appearance Appearance {
                 material Material {
-                    emissiveColor 1 1 0
+                    emissiveColor 1 0 0
                     diffuseColor 0.75 0.75 0.75
                 }
             }
