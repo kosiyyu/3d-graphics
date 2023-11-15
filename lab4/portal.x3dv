@@ -1,0 +1,17 @@
+#X3D V3.3 utf8
+
+Collision {
+    enabled TRUE
+    proxy NULL
+    children []
+    bboxCenter 0 0 0
+    bboxSize -1 -1 -1
+}
+
+DEF NewWorldView Viewpoint {
+    fieldOfView 0.785398
+    jump TRUE
+    orientation 1 0 0 -1.570796
+    position 0 130 0
+    description "new world view"
+}

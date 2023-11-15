@@ -1,0 +1,39 @@
+#X3D V3.3 utf8
+
+NavigationInfo {
+    headlight FALSE
+    speed 16
+}
+
+Transform {
+    scale 0.5 0.5 0.01
+    translation -2 1 5
+    children [
+        DEF LIGHT_SENSOR TouchSensor {}
+        Shape{
+            appearance Appearance {
+                texture ImageTexture {
+                    url ["diamond_ore.jpg"]
+                    flipVertically FALSE
+                    repeatS TRUE
+                    repeatT TRUE
+                }
+                material Material {
+                    diffuseColor 1.0 1.0 1.0
+                    shininess 1
+                }
+            }
+            geometry Box {
+                size 1 1 1
+            }
+        }
+    ]
+}
+
+DEF LIGHT PointLight {
+    color 1 1 1
+    on FALSE
+    location -2 1 7
+}
+
+ROUTE LIGHT_SENSOR.isActive TO LIGHT.set_on

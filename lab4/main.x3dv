@@ -6,3 +6,26 @@ Inline { url ["button.x3dv"] }
 Inline { url ["new_word.x3dv"] }
 Inline { url ["gate.x3dv"] }
 Inline { url ["torch.x3dv"] }
+Inline { url ["light_image.x3dv"] }
+Inline { url ["exit_gate.x3dv"] }
+
+Background {
+    skyColor [
+        0.0 0.2 0.7,
+        0.0 0.5 1.0,
+        1.0 1.0 1.0
+    ]
+    skyAngle [ 1.309, 1.57]
+    groundColor [
+        0.1 0.10 0.0,
+        0.4 0.25 0.2,
+        0.6 0.60 0.6
+    ]
+    groundAngle [ 1.309,1.57]
+}
+
+Fog {
+    color 1 1 1
+    fogType "EXPONENTIAL"
+    visibilityRange 1000
+}
