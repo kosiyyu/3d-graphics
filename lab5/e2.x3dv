@@ -1,0 +1,134 @@
+#X3D V3.3 utf8
+
+PROTO chair []
+{
+    Transform {
+        children [
+        Transform {
+            translation  0 0 0
+            children
+            DEF leg Shape {
+            appearance Appearance {
+                material Material {
+                    emissiveColor 0 1 0
+                    diffuseColor 0.75 0.75 0.75
+                } 
+            }
+            geometry Cylinder { height 1 radius 0.1 } } 
+        }
+
+        Transform {
+            translation 0.5 0.55 0.5
+            scale 1.2 0.1 1.2
+            children
+            Shape {
+            appearance Appearance {
+                material Material {
+                    emissiveColor 0 1 0
+                    diffuseColor 0.75 0.75 0.75
+                } 
+            }
+            geometry Box { size 1 1 1 } } 
+        }
+
+        Transform {
+            translation 0 0 1
+            children USE leg
+        }
+
+        Transform {
+            translation 1 0 0
+            children USE leg
+        }
+
+        Transform {
+            translation 1 0 1
+            children USE leg
+        }
+
+        Transform {
+            translation 0.5 1 1
+            scale 1 1 0.1
+            children
+            Shape {
+            appearance Appearance {
+                material Material {
+                    emissiveColor 0 1 0
+                    diffuseColor 0.75 0.75 0.75
+                } 
+            }
+            geometry Box { size 1 1 1 } } 
+        }
+    ]
+}
+}
+
+PROTO table []
+{
+    Transform {
+        children [
+        Transform {
+            translation  0 0 0
+            children
+            DEF leg Shape {
+            appearance Appearance {
+                material Material {
+                    emissiveColor 0 1 0
+                    diffuseColor 0.75 0.75 0.75
+                } 
+            }
+            geometry Cylinder { height 1 radius 0.1 } } 
+        }
+
+        Transform {
+            translation 0.5 0.55 0.5
+            scale 1.2 0.1 1.2
+            children
+            Shape {
+            appearance Appearance {
+                material Material {
+                    emissiveColor 0 1 0
+                    diffuseColor 0.75 0.75 0.75
+                } 
+            }
+            geometry Box { size 1 1 1 } } 
+        }
+
+        Transform {
+            translation 0 0 1
+            children USE leg
+        }
+
+        Transform {
+            translation 1 0 0
+            children USE leg
+        }
+
+        Transform {
+            translation 1 0 1
+            children USE leg
+        }
+    ]
+}
+}
+
+
+DEF FinalTable Transform {
+    translation -0.25 0.45 -3
+    scale 2 2 2
+    children table {}
+}
+
+DEF FinalChair Transform {
+    translation  0 0.2 0
+    scale 1.5 1.5 1.5
+    children chair {}
+}
+
+Transform {
+    translation 3 0 0
+    children [
+        USE FinalTable
+        USE FinalChair
+    ]
+}
