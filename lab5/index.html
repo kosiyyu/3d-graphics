@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>x3d</title>
+    <script type="text/javascript" src="https://www.x3dom.org/download/x3dom.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://www.x3dom.org/download/x3dom.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+    <div class="center">
+        <h1>MAGIC SHAPES</h1>
+        <x3d width="500px" height="500px" class="border">
+            <scene>
+                <pointlight DEF='light' location='2 0 0' color='1 0 0'></pointlight>
+
+                <transform DEF='cube' translation='0 0 -1.5'>
+                    <shape>
+                        <appearance>
+                            <material diffuseColor='1 1 1'></material>
+                        </appearance>
+                        <box size='1 1 1'></box>
+                    </shape>
+                </transform>
+
+                <transform DEF='ball' translation='0 0 0'>
+                    <shape>
+                        <appearance>
+                            <material diffuseColor='0 0 1'></material>
+                        </appearance>
+                        <sphere radius='1'></sphere>
+                    </shape>
+                </transform>
+
+                <TimeSensor DEF="time" cycleInterval="5" loop="true"></TimeSensor>
+                <OrientationInterpolator DEF='rotationAnimation' key='0 0.25 0.5 0.75 1'
+                    keyValue='0 1 0 0, 0 1 0 0.785, 0 1 0 1.57, 0 1 0 2.355, 0 1 0 3.14'>
+                </OrientationInterpolator>
+                <ROUTE fromNode='time' fromField='fraction_changed' toNode='rotationAnimation' toField='set_fraction'>
+                </ROUTE>
+                <ROUTE fromNode='rotationAnimation' fromField='value_changed' toNode='cube' toField='rotation'></ROUTE>
+
+                <TimeSensor DEF="positionTime" cycleInterval="5" loop="true"></TimeSensor>
+                <PositionInterpolator DEF='positionAnimation' key='0; 0.25; 0.5; 0.75; 1;'
+                    keyValue='-2 -2 -2; 2 -2 -2; 2 2 -2; -2 2 -2; -2 -2 -2;'>
+                </PositionInterpolator>
+                <ROUTE fromNode='positionTime' fromField='fraction_changed' toNode='positionAnimation'
+                    toField='set_fraction'></ROUTE>
+                <ROUTE fromNode='positionAnimation' fromField='value_changed' toNode='ball' toField='translation'>
+                </ROUTE>
+
+                <background>
+                    <linearGradient DEF="grad" rotation="0 1 0 0">
+                        <stop offset="0%" color="0.7 0.7 1.0"></stop>
+                        <stop offset="100%" color="0.4 0.4 0.8"></stop>
+                    </linearGradient>
+                </background>
+            </scene>
+        </x3d>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,19 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.center {
+    text-align: center;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.border {
+    border-radius: 10px; /* Adjust the value to control the roundness of the border */
+    padding: 20px; /* Optional: Add padding for better visual appearance */
+    background-color: #000000; /* Optional: Add a background color */
+    margin-bottom: 5%;
+}
