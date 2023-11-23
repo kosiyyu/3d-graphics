@@ -1,0 +1,113 @@
+#X3D V3.3 utf8
+
+PROTO hut [
+    field SFVec3f custom_translation 0 0 0
+    exposedField SFRotation custom_rotation 0 0 1 0
+    exposedField SFVec3f custom_scale 1 1 1
+] {
+    Transform {
+    translation IS custom_translation
+    rotation IS custom_rotation
+    scale IS custom_scale
+    children [
+        Group {
+            children [
+                Transform {
+                    translation 0 2 0
+                    children [
+                        DEF Base Shape {
+                        geometry Box {  
+                            size 4 4 4
+                        }
+                        appearance Appearance {
+                            material Material {
+                                emissiveColor 1 0.8 0
+                                diffuseColor 0.15 0.28 0.95
+                            } 
+                        }
+                    }
+                    ]
+                }
+
+                Transform {
+                    translation 0 5 1
+                    rotation 1 0 0 0.80783811092
+                    children [
+                        DEF Base Shape {
+                        geometry Box {  
+                            size 5 0.5 4
+                        }
+                        appearance Appearance {
+                            material Material {
+                                emissiveColor 0.45 0.2 0.2
+                                diffuseColor 0.95 0.25 0.95
+                            } 
+                        }
+                    }
+                    ]
+                }
+
+                Transform {
+                    translation 0 5 -1
+                    rotation -1 0 0 0.80783811092
+                    children [
+                        DEF Base Shape {
+                        geometry Box {  
+                            size 5 0.5 4
+                        }
+                        appearance Appearance {
+                            material Material {
+                                emissiveColor 0.45 0.2 0.2
+                                diffuseColor 0.95 0.25 0.95
+                            } 
+                        }
+                    }
+                    ]
+                }
+
+                Transform {
+                    translation 0 6 -0.8
+                    children [
+                        DEF Base Shape {
+                        geometry Box {  
+                            size 0.5 3 0.5
+                        }
+                        appearance Appearance {
+                            material Material {
+                                emissiveColor 1 0.8 0
+                                diffuseColor 0.95 0.25 0.95
+                            } 
+                        }
+                    }
+                    ]
+                }
+
+                Transform {
+                    translation -2 1 -0.8
+                    children [
+                        Shape {
+                        geometry Box {  
+                            size 0.1 2 1
+                        }
+                        appearance Appearance {
+                            material Material {
+                                emissiveColor 0.45 0.2 0.2
+                                diffuseColor 0.45 0.2 0.2
+                            } 
+                        }
+                    }
+                    ]
+                }
+            ]
+            bboxCenter 0 0 0
+            bboxSize -1 -1 -1
+        }
+    ]
+}
+}
+
+hut { 
+    custom_translation 0 0 -25 
+    custom_rotation 0 1 0 0.5
+    custom_scale 1 1 1
+}

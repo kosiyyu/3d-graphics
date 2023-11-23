@@ -1,0 +1,98 @@
+#X3D V3.3 utf8
+
+Inline { url ["base.x3dv"] }
+Inline { url ["tree.x3dv"] }
+Inline { url ["road.x3dv"] }
+Inline { url ["moon.x3dv"] }
+Inline { url ["mountain.x3dv"] }
+Inline { url ["hut.x3dv"] }
+Inline { url ["ghost.x3dv"] }
+Inline { url ["car.x3dv"] }
+Inline { url ["stone.x3dv"] }
+
+NavigationInfo {
+    headlight FALSE
+    speed 12
+}
+
+DEF base Transform {
+    children [
+        Shape {
+        geometry Box {  
+            size 100 0.1 100
+        }
+        appearance Appearance {
+            material Material {
+                emissiveColor 0.2 0.7 0.2
+                diffuseColor 0.75 0.75 0.75
+            } 
+        }
+    }
+    ]
+}
+
+### OBIEKTY
+
+tree {
+    custom_translation 10 0 10
+    custom_rotation 0 0 1 0
+    custom_scale 10 10 10 
+    custom_color 1 0 0
+}
+
+tree {
+    custom_translation -10 0 10
+    custom_rotation 0 0 1 0
+    custom_scale 10 10 10
+    custom_color 1 0 0
+}
+
+###
+
+### BACKGROUND
+Background {
+    skyColor [
+        0.0 0.2 0.2,
+        0.0 0.1 0.2,
+        0.2 0.2 0.2
+    ]
+    skyAngle [ 1.309, 1.57]
+    groundColor [
+        0.1 0.80 0.0,
+        0.4 0.85 0.2,
+        0.6 0.90 0.6
+    ]
+    groundAngle [ 1.309,1.57]
+}
+
+Fog {
+    color 1 1 1
+    fogType "EXPONENTIAL"
+    visibilityRange 1000
+}
+
+###
+
+Viewpoint {
+    fieldOfView 0.785398
+    jump TRUE
+    orientation 1 0 0 -1.570796
+    position 0 95 0
+    description "above"
+}
+
+Viewpoint {
+    fieldOfView 0.785398
+    jump TRUE
+    orientation 0 1 0 0
+    position -10 2 0
+    description "hut"
+}
+
+Viewpoint {
+    fieldOfView 0.785398
+    jump TRUE
+    orientation 0 -1 0 1.570796
+    position -120 2 -10
+    description "left"  
+}

@@ -1,0 +1,56 @@
+#X3D V3.3 utf8
+
+Anchor {
+    description "button teleport"
+    url "#view"
+    children [
+        Transform {
+            scale 0.1 0.05 0.1
+            translation -2 0.5 -4
+                children [
+                    Transform {
+                        translation 0 0 0
+                        children [
+                            Shape {
+                                geometry Cylinder {  
+                                    height 6
+                                    radius 3
+                                }
+                                appearance Appearance {
+                                    material Material {
+                                        emissiveColor 0.5 0.5 0.5
+                                        diffuseColor 0.45 0.2 0.2
+                                    }
+                                }
+                            }
+                        ]
+                    }
+
+                    Transform {
+                        translation 0 3 0
+                        children [
+                            Shape {
+                                geometry Sphere {  
+                                    radius 3
+                                }
+                                appearance Appearance {
+                                    material Material {
+                                        emissiveColor 0.5 0.5 0.5
+                                        diffuseColor 0.45 0.2 0.2
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                ]
+        }
+    ]
+}
+
+DEF view Viewpoint {
+    fieldOfView 0.785398
+    jump TRUE
+    orientation 0 1 0 0
+    position -1 2 5
+    description "stone"
+}

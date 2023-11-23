@@ -1,0 +1,38 @@
+#X3D V3.3 utf8
+
+DEF Sensor TimeSensor {
+    cycleInterval 5
+    enabled TRUE
+    loop TRUE
+}
+
+DEF Interpolator ColorInterpolator {
+    key [0.5, 0.75, 1]
+    keyValue [1 1 0, 1 0 0, 1 1 0]
+}
+
+DEF moon Transform {
+    translation 0 100 0
+    children [
+        Shape {
+            geometry Sphere {
+                radius 3
+            }
+            appearance Appearance {
+                material Material {
+                    emissiveColor 1 1 1
+                    diffuseColor 1 1 1
+                } 
+            }
+        }
+        DEF point_light PointLight {
+        color 1 1 1
+        on TRUE
+        location 0 100 0
+        intensity 0.5
+        }
+    ]
+}
+
+ROUTE Sensor.fraction_changed TO Interpolator.set_fraction
+ROUTE Interpolator.value_changed TO point_light.set_color

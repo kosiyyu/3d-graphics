@@ -1,0 +1,151 @@
+#X3D V3.3 utf8
+
+DEF time_sensor TimeSensor { 
+    cycleInterval 5
+    loop TRUE
+}
+DEF position_interpolator PositionInterpolator { 
+    key [0, 1] 
+    keyValue [-5 1.15 -30, -5 1.15 50] 
+}
+
+PROTO car [
+    exposedField SFVec3f set_translation -5 1.15 -30
+] {
+    Transform {
+        translation IS set_translation
+        rotation 0 1 0 3.14159
+        children [
+            DEF chassie Transform {
+            translation 0 0 0
+                children [
+                    Shape {
+                        geometry Box {  
+                            size 2 1 3
+                        }
+                        appearance Appearance {
+                            material Material {
+                                emissiveColor 1 0 0
+                                diffuseColor 0.75 0.75 0.75
+                            } 
+                        }
+                    }
+                ]
+            }
+            DEF mid Transform {
+            translation 0 1 0.5
+                children [
+                    Shape {
+                        geometry Box {  
+                            size 2 1 1
+                        }
+                        appearance Appearance {
+                            material Material {
+                                emissiveColor 1 0 0
+                                diffuseColor 0.75 0.75 0.75
+                            } 
+                        }
+                    }
+                ]
+            }
+
+            DEF window Transform {
+            translation 0 1 -0.5
+                children [
+                    Shape {
+                        geometry Box {  
+                            size 2 1 1
+                        }
+                        appearance Appearance {
+                            material Material {
+                                emissiveColor 0 0.1 0.5
+                                diffuseColor 0.75 0.75 0.75
+                            } 
+                        }
+                    }
+                ]
+            }
+
+            DEF top1 Transform {
+            translation 0 1.5 -0.5
+                children [
+                    Shape {
+                        geometry Box {  
+                            size 2 0.1 1
+                        }
+                        appearance Appearance {
+                            material Material {
+                                emissiveColor 1 0 0
+                                diffuseColor 0.75 0.75 0.75
+                            } 
+                        }
+                    }
+                ]
+            }
+
+            DEF top1 Transform {
+            translation 0 1.5 0.5
+                children [
+                    Shape {
+                        geometry Box {  
+                            size 2 0.1 1
+                        }
+                        appearance Appearance {
+                            material Material {
+                                emissiveColor 1 0 0
+                                diffuseColor 0.75 0.75 0.75
+                            } 
+                        }
+                    }
+                ]
+            }
+
+            DEF wheel_t_l Transform {
+            translation -1 -0.5 -1
+            rotation 0 0 1 1.5708
+                children [
+                    DEF wheel Shape {
+                        geometry Cylinder {  
+                            height 0.2
+                            radius 0.5
+                        }
+                        appearance Appearance {
+                            material Material {
+                                emissiveColor 0 0 0
+                                diffuseColor 0.75 0.75 0.75
+                            } 
+                        }
+                    }
+                ]
+            }
+            DEF wheel_b_l Transform {
+            translation -1 -0.5 1
+            rotation 0 0 1 1.5708
+                children [
+                    USE wheel
+                ]
+            }
+
+            DEF wheel_t_r Transform {
+            translation 1 -0.5 -1
+            rotation 0 0 1 1.5708
+                children [
+                    USE wheel
+                ]
+            }
+
+            DEF wheel_b_r Transform {
+            translation 1 -0.5 1
+            rotation 0 0 1 1.5708
+                children [
+                    USE wheel
+                ]
+            }
+        ]
+    }
+}
+
+DEF car_object car { set_translation -5 1.15 -30}
+
+ROUTE time_sensor.fraction_changed TO position_interpolator.set_fraction
+ROUTE position_interpolator.value_changed TO car_object.set_translation

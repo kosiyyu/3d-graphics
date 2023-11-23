@@ -1,0 +1,185 @@
+#X3D V3.3 utf8
+
+PROTO tree [
+    exposedField SFVec3f custom_translation 0 0 0
+    exposedField SFRotation custom_rotation 0 0 1 0
+    exposedField SFVec3f custom_scale 1 1 1
+    exposedField SFColor custom_color 1 1 1
+] {
+    Transform {
+        translation IS custom_translation
+        rotation IS custom_rotation
+        scale IS custom_scale
+        children [
+            Transform {
+                translation 0 1.7 0
+                children [
+                    Shape {
+                        geometry Cone {  
+                            height 1
+                            bottomRadius 0.5
+                        }
+                        appearance Appearance {
+                            material Material {
+                                emissiveColor 0 0.7 0
+                                diffuseColor 0.75 0.75 0.75
+                            }
+                        }
+                    }
+                ]
+            }
+
+            Transform {
+                translation 0 1.2 0
+                children [
+                    Shape {
+                        geometry Cone {  
+                            height 1
+                            bottomRadius 0.5
+                        }
+                        appearance Appearance {
+                            material Material {
+                                emissiveColor 0 0.7 0
+                                diffuseColor 0.75 0.75 0.75
+                            }
+                        }
+                    }
+                ]
+            }
+
+            Transform {
+                translation 0 0.7 0
+                children [
+                    Shape {
+                        geometry Cone {  
+                            height 1
+                            bottomRadius 0.5
+                        }
+                        appearance Appearance {
+                            material Material {
+                                emissiveColor 0 0.7 0
+                                diffuseColor 0.75 0.75 0.75
+                            }
+                        }
+                    }
+                ]
+            }
+
+            Transform {
+                translation 0 0 0
+                children [
+                    Shape {
+                        geometry Cylinder {  
+                            height 0.5
+                            radius 0.1
+                        }
+                        appearance Appearance {
+                            material Material {
+                                emissiveColor 0.45 0.2 0.2
+                                diffuseColor 0.45 0.2 0.2
+                            }
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+}
+
+
+PROTO trees [
+    exposedField SFVec3f higher_abstraction_translation 0 0 0
+] {
+    Transform {
+        translation IS higher_abstraction_translation
+        children [
+            tree {
+                custom_translation 2 0 10
+                custom_rotation 0 0 1 0
+                custom_scale 3 3 3
+                custom_color 1 0 0
+            }
+
+            tree {
+                custom_translation -10 0 10
+                custom_rotation 0 0 1 0
+                custom_scale 3 3 3
+                custom_color 1 0 0
+            }
+
+            tree {
+                custom_translation -8 0 2
+                custom_rotation 0 0 1 0
+                custom_scale 3 3 3
+                custom_color 1 0 0
+            }
+
+            tree {
+                custom_translation -15 0 12
+                custom_rotation 0 0 1 0
+                custom_scale 3 3 3
+                custom_color 1 0 0
+            }
+        ]
+    }
+}
+
+trees {
+    higher_abstraction_translation 0 0 10
+}
+
+trees {
+    higher_abstraction_translation 20 0 15
+}
+
+trees {
+    higher_abstraction_translation 40 0 15
+}
+
+trees {
+    higher_abstraction_translation 40 0 -30
+}
+
+trees {
+    higher_abstraction_translation 20 0 -30
+}
+
+trees {
+    higher_abstraction_translation 20 0 -15
+}
+
+trees {
+    higher_abstraction_translation 25 0 -15
+}
+
+trees {
+    higher_abstraction_translation 25 0 -10
+}
+
+trees {
+    higher_abstraction_translation -30 0 -10
+}
+
+trees {
+    higher_abstraction_translation -20 0 -20
+}
+
+trees {
+    higher_abstraction_translation 0 0 -20
+}
+
+trees {
+    higher_abstraction_translation 0 0 -40
+}
+
+trees {
+    higher_abstraction_translation 0 0 20
+}
+
+trees {
+    higher_abstraction_translation -3 0 30
+}
+
+trees {
+    higher_abstraction_translation 15 0 30
+}

@@ -1,0 +1,18 @@
+#X3D V3.3 utf8
+
+DEF base Transform {
+    translation -5 0.1 12
+    children [
+        DEF Base Shape {
+        geometry Box {  
+            size 4 0.1 75
+        }
+        appearance Appearance {
+            material Material {
+                emissiveColor 0.2 0.2 0.2
+                diffuseColor 0.75 0.75 0.75
+            } 
+        }
+    }
+    ]
+}
