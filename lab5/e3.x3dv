@@ -1,0 +1,52 @@
+#X3D V3.3 utf8
+
+Transform {
+    translation 0 0 8
+    children [
+        Shape {
+            geometry Sphere {  
+                radius 1
+            }
+            appearance Appearance {
+                material DEF material Material {
+                    diffuseColor 1 1 0
+                }
+            }
+        }
+    ]
+}
+
+DEF time_sensor TimeSensor { 
+    cycleInterval 5
+    loop TRUE
+    
+}
+DEF position_interpolator PositionInterpolator { 
+    key [0, 1] 
+    keyValue [0 0 0, 0 0 10] 
+}
+
+PROTO moving_sphere [
+    exposedField SFVec3f set_translation 0 0 0
+] {
+    Transform {
+        translation IS set_translation
+        children [
+            Shape {
+                geometry Sphere {  
+                    radius 1
+                }
+                appearance Appearance {
+                    material DEF material Material {
+                        diffuseColor 1 1 1
+                    }
+                }
+            }
+        ]
+    }
+}
+
+DEF my_sphere moving_sphere { set_translation 0 0 0 }
+
+ROUTE time_sensor.fraction_changed TO position_interpolator.set_fraction
+ROUTE position_interpolator.value_changed TO my_sphere.set_translation
