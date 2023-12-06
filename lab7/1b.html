@@ -1,0 +1,87 @@
+<html>
+    <body>
+        <style>
+            #moje_plotno{border:1px solid rgb(0, 255, 64);}
+        </style>
+        <canvas id="moje_plotno" width="1280" height="960"></canvas>
+        <script>
+            function main() 
+            {        
+                const canvas = document.getElementById('moje_plotno'); 
+                canvas
+                const gl = canvas.getContext('webgl'); 
+                if (!gl) 
+                {
+                    alert('Nie można zainicjować WebGL. Sprawdź przeglądarkę lub komputer.');
+                    return;
+                }
+
+             //*************************************definicja naszej geometrii*************************************
+
+                var vertices = [
+                    -0.6, 0.3, 0.0,
+                    -0.4, -0.3, 0.0,
+                    -0.2, 0.3, 0.0,
+                    -0.0, -0.3, 0.0,
+                    0.2, 0.3, 0.0,
+                    0.4, -0.3, 0.0,
+                ];
+
+
+                var vertex_buffer = gl.createBuffer(); //tworzymy pusty obiekt bufora do przechowywania wierzcholkow
+                gl.bindBuffer(gl.ARRAY_BUFFER, vertex_buffer); //powiaz z buforem tablicy
+                gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW); //przkazujemy dane wierzcholkow do bufora
+                gl.bindBuffer(gl.ARRAY_BUFFER, null); //odwiaz bufor
+
+                var vertCode = 
+                    'attribute vec3 coordinates;' +
+                    'void main(void) {' +
+                    ' gl_Position = vec4(coordinates,1.0);' +
+                    'gl_PointSize = 20.0;' +
+                    '}'; //kod zrodlowy vertex shadera
+
+            //*************************************shaders*************************************
+
+                var vertShader = gl.createShader(gl.VERTEX_SHADER);//tworzymy obiekt vertex shadera
+                gl.shaderSource(vertShader, vertCode); //dolaczamy kod zrodlowy vertex shadera
+                gl.compileShader(vertShader);//kompilujemy kod vertex shadera
+
+                var fragCode =
+                    'void main(void) {' +
+                    ' gl_FragColor = vec4(0.0,0.0,0.0,0.1);' +
+                    '}'; //kod zrodowy fragment shadera
+
+
+                var fragShader = gl.createShader(gl.FRAGMENT_SHADER); //tworzymy obiekt fragment shadera
+                gl.shaderSource(fragShader, fragCode); //dolaczamy kod zrodlowy fragment shadera
+                gl.compileShader(fragShader);//kompilujemy kod fragment shadera
+
+                var shaderProgram = gl.createProgram(); //tworzymy obiekt programu shadera (vertex+fragment)
+                gl.attachShader(shaderProgram, vertShader);  //dolaczamy vertex shader
+                gl.attachShader(shaderProgram, fragShader);//dolaczamy fragment shader
+                gl.linkProgram(shaderProgram); //linkujemy
+                gl.useProgram(shaderProgram); //uzyj programu shadera
+
+            //*************************************powiazanie shaderow z buforem obiektow*************************************
+
+                gl.bindBuffer(gl.ARRAY_BUFFER, vertex_buffer); //powiaz z buforem tablicy
+                var coord = gl.getAttribLocation(shaderProgram, "coordinates"); //pobierz lokalizacje atrybutow
+                gl.vertexAttribPointer(coord, 3, gl.FLOAT, false, 0, 0); //wskaz atrybut na aktualnie powiazany z vbo
+                gl.enableVertexAttribArray(coord);//wlacz atrybut
+
+            //*************************************rysowanie prymitywow*************************************
+
+                gl.clearColor(0.0, 0.0, 0.0, 1.0); //wlacz depth test
+                gl.enable(gl.DEPTH_TEST); //wlacz depth test
+                gl.clear(gl.COLOR_BUFFER_BIT);//czysc bufor koloru
+                gl.viewport(0,0,canvas.width,canvas.height); //ustaw obszar renderowania
+                gl.drawArrays(gl.LINES, 0, 6); //rysuj punkty
+
+
+            }
+            window.onload = main; //wywołanie funkcji main() kiedy ładowany jest nasz skrypt
+        </script>
+
+    </body>
+</html>
+

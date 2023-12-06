@@ -1,0 +1,107 @@
+<html>
+    <body>
+        <style>
+            #moje_plotno{border:1px solid rgb(0, 255, 64);}
+        </style>
+        <canvas id="moje_plotno" width="1280" height="960"></canvas>
+        <script>
+            function main() 
+            {        
+                const canvas = document.getElementById('moje_plotno'); 
+                canvas;
+                const gl = canvas.getContext('webgl'); 
+                if (!gl) 
+                {
+                    alert('Nie można zainicjować WebGL. Sprawdź przeglądarkę lub komputer.');
+                    return;
+                }
+                var vertices = [
+                    -0.4,0.2,0.0,
+                    0.4,0.2,0.0,
+                    -0.4,0.0,0.0,
+                    0.4,0.0,0.0,
+                    -0.4,0.0,0.0,
+                    0.4,0.0,0.0,
+                    -0.4,-0.2,0.0,
+                    0.4,-0.2,0.0,
+                ];
+                indices = [0,1,2,1,2,3,4,5,6,5,6,7];
+
+                var colors = [1,1,1, 1,1,1, 1,1,1, 1,1,1, 1,0,0, 1,0,0, 1,0,0, 1,0,0];
+
+
+                var vertex_buffer = gl.createBuffer(); //tworzymy pusty obiekt bufora do przechowywania wierzcholkow
+                gl.bindBuffer(gl.ARRAY_BUFFER, vertex_buffer); //powiaz z buforem tablicy
+                gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW); //przkazujemy dane wierzcholkow do bufora
+                gl.bindBuffer(gl.ARRAY_BUFFER, null); //odwiaz bufor
+
+                var Index_Buffer = gl.createBuffer(); //tworzymy pusty obiekt bufora do przechowywania indeksow
+                gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, Index_Buffer); //powiaz z buforem tablicy
+                gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), gl.STATIC_DRAW); //przekazujemy dane indeksow do bufora
+                gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, null); 
+
+                var color_buffer = gl.createBuffer ();
+                gl.bindBuffer(gl.ARRAY_BUFFER, color_buffer);
+                gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW); //bufor kolorow
+
+                var vertCode = 
+                    'attribute vec3 coordinates;' +
+                    'attribute vec3 color;' +
+                    'varying vec3 vColor;' +
+                    'void main(void) {' +
+                    ' gl_Position = vec4(coordinates,1.0);' +
+                    'vColor = color;' +
+                    '}'; //kod zrodlowy vertex shadera
+
+            //*************************************shaders*************************************
+
+                var vertShader = gl.createShader(gl.VERTEX_SHADER);//tworzymy obiekt vertex shadera
+                gl.shaderSource(vertShader, vertCode); //dolaczamy kod zrodlowy vertex shadera
+                gl.compileShader(vertShader);//kompilujemy kod vertex shadera
+
+                var fragCode = 'precision mediump float;' +
+                    'varying vec3 vColor;' +
+                    'void main(void) {' +
+                    ' gl_FragColor = vec4(vColor,1.);' +
+                    '}'; //kod zrodowy fragment shadera
+
+
+                var fragShader = gl.createShader(gl.FRAGMENT_SHADER); //tworzymy obiekt fragment shadera
+                gl.shaderSource(fragShader, fragCode); //dolaczamy kod zrodlowy fragment shadera
+                gl.compileShader(fragShader);//kompilujemy kod fragment shadera
+
+                var shaderProgram = gl.createProgram(); //tworzymy obiekt programu shadera (vertex+fragment)
+                gl.attachShader(shaderProgram, vertShader);  //dolaczamy vertex shader
+                gl.attachShader(shaderProgram, fragShader);//dolaczamy fragment shader
+                gl.linkProgram(shaderProgram); //linkujemy
+                gl.useProgram(shaderProgram); //uzyj programu shadera
+
+            //*************************************powiazanie shaderow z buforem obiektow*************************************
+
+                gl.bindBuffer(gl.ARRAY_BUFFER, vertex_buffer); //powiaz z buforem tablicy\
+                gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, Index_Buffer); //powiaz z buforem tablicy-indeksy
+                var coord = gl.getAttribLocation(shaderProgram, "coordinates"); //pobierz lokalizacje atrybutow
+                gl.vertexAttribPointer(coord, 3, gl.FLOAT, false, 0, 0); //wskaz atrybut na aktualnie powiazany z vbo
+                gl.enableVertexAttribArray(coord);//wlacz atrybut
+
+                gl.bindBuffer(gl.ARRAY_BUFFER, color_buffer); //powiaz z buforem tablicy-kolor
+                var color = gl.getAttribLocation(shaderProgram, "color"); //pobierz lokalizacje atrybutow
+                gl.vertexAttribPointer(color, 3, gl.FLOAT, false,0,0) ; //wskaz atrybut na aktualnie powiazany - bufor koloru
+                gl.enableVertexAttribArray(color);  //wlacz atrybut
+
+         //*************************************rysowanie prymitywow*************************************
+
+                gl.clearColor(0.0, 0.0, 0.0, 1.0); //wlacz depth test
+                gl.enable(gl.DEPTH_TEST); //wlacz depth test
+                gl.clear(gl.COLOR_BUFFER_BIT);//czysc bufor koloru
+                gl.viewport(0,0,canvas.width,canvas.height); //ustaw obszar renderowania
+                gl.drawElements(gl.TRIANGLES, indices.length, gl.UNSIGNED_SHORT,0); //rysuj trojkat
+
+
+            }
+            window.onload = main; //wywołanie funkcji main() kiedy ładowany jest nasz skrypt
+        </script>
+
+    </body>
+</html>
+
