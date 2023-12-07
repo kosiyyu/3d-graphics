@@ -1,0 +1,95 @@
+<html>
+  <style>
+    #moje_plotno { border:1px solid rgb(0, 255, 64); }
+  </style>
+<body>
+  <canvas id="moje_plotno" width="600" height="600"></canvas>
+</body>
+
+<script>
+  const canvas = document.getElementById('moje_plotno');
+  const gl = canvas.getContext('webgl');
+
+  // Liczba punktów używanych do kreślenia koła
+  const liczbaPunktow = 100;
+  const promien = 0.5; // Promień koła
+
+  // Generowanie wierzchołków koła
+  var vertices = [];
+  for (let i = 0; i <= liczbaPunktow; i++) {
+    let angle = 2 * Math.PI * i / liczbaPunktow;
+    vertices.push(Math.cos(angle) * promien);
+    vertices.push(Math.sin(angle) * promien);
+    vertices.push(0); // współrzędna z (koło jest płaskie)
+  }
+
+  // Tworzenie bufora wierzchołków
+  var vertex_buffer = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, vertex_buffer);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
+  gl.bindBuffer(gl.ARRAY_BUFFER, null);
+
+  // Kod shaderów z obrotem
+  var vertCode =
+    'attribute vec4 coordinates;' +
+    'uniform float angle;' +
+    'void main(void) {' +
+    '  float c = cos(angle);' +
+    '  float s = sin(angle);' +
+    '  gl_Position = vec4(c * coordinates.x - s * coordinates.y, s * coordinates.x + c * coordinates.y, coordinates.z, 1.0);' +
+    '}';
+
+  var vertShader = gl.createShader(gl.VERTEX_SHADER);
+  gl.shaderSource(vertShader, vertCode);
+  gl.compileShader(vertShader);
+
+  var fragCode =
+    'void main(void) {' +
+    '  gl_FragColor = vec4(0, 0, 0, 1);' +
+    '}';
+
+  var fragShader = gl.createShader(gl.FRAGMENT_SHADER);
+  gl.shaderSource(fragShader, fragCode);
+  gl.compileShader(fragShader);
+
+  // Tworzenie programu shadera
+  var shaderProgram = gl.createProgram();
+  gl.attachShader(shaderProgram, vertShader);
+  gl.attachShader(shaderProgram, fragShader);
+  gl.linkProgram(shaderProgram);
+  gl.useProgram(shaderProgram);
+
+  // Powiązanie shaderów z buforem wierzchołków
+  gl.bindBuffer(gl.ARRAY_BUFFER, vertex_buffer);
+  var coord = gl.getAttribLocation(shaderProgram, "coordinates");
+  gl.vertexAttribPointer(coord, 3, gl.FLOAT, false, 0, 0);
+  gl.enableVertexAttribArray(coord);
+
+  // Ustawianie kąta obrotu
+  var angleLoc = gl.getUniformLocation(shaderProgram, 'angle');
+  var angle = 0.0;
+
+  // Funkcja do rysowania sceny
+  function drawScene() {
+    // Aktualizacja kąta
+    angle += 0.01;
+
+    // Ustawianie kąta w shaderze
+    gl.uniform1f(angleLoc, angle);
+
+    // Rysowanie sceny
+    gl.clearColor(0.5, 0.5, 0.5, 0.9);
+    gl.enable(gl.DEPTH_TEST);
+    gl.clear(gl.COLOR_BUFFER_BIT);
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    gl.drawArrays(gl.LINE_LOOP, 0, liczbaPunktow + 1);
+
+    // Żądanie kolejnej klatki animacji
+    requestAnimationFrame(drawScene);
+  }
+
+  // Rozpoczęcie animacji
+  requestAnimationFrame(drawScene);
+</script>
+
+</html>

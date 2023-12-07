@@ -1,0 +1,79 @@
+<html>
+  <style>
+    #moje_plotno { border:1px solid rgb(0, 255, 64); }
+  </style>
+<body>
+  <canvas id="moje_plotno" width="600" height="600"></canvas>
+</body>
+
+<script>
+  const canvas = document.getElementById('moje_plotno');
+  const gl = canvas.getContext('webgl');
+
+  // Liczba punktów używanych do kreślenia koła
+  const liczbaPunktow = 100;
+  const promien = 0.5; // Promień koła
+
+  // Generowanie wierzchołków koła
+  var vertices = [];
+  for (let i = 0; i <= liczbaPunktow; i++) {
+    let angle = 2 * Math.PI * i / liczbaPunktow;
+    vertices.push(Math.cos(angle) * promien);
+    vertices.push(Math.sin(angle) * promien);
+    vertices.push(0); // współrzędna z (koło jest płaskie)
+  }
+
+  // Tworzenie bufora wierzchołków
+  var vertex_buffer = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, vertex_buffer);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
+  gl.bindBuffer(gl.ARRAY_BUFFER, null);
+
+  // Kod shaderów z skalowaniem
+  var vertCode =
+    'attribute vec4 coordinates;' +
+    'uniform vec4 scaling;' +
+    'void main(void) {' +
+    '  gl_Position = vec4(coordinates.x * scaling.x, coordinates.y * scaling.y, coordinates.z * scaling.z, 1.0);' +
+    '}';
+
+  var vertShader = gl.createShader(gl.VERTEX_SHADER);
+  gl.shaderSource(vertShader, vertCode);
+  gl.compileShader(vertShader);
+
+  var fragCode =
+    'void main(void) {' +
+    '  gl_FragColor = vec4(0, 0, 0, 1);' +
+    '}';
+
+  var fragShader = gl.createShader(gl.FRAGMENT_SHADER);
+  gl.shaderSource(fragShader, fragCode);
+  gl.compileShader(fragShader);
+
+  // Tworzenie programu shadera
+  var shaderProgram = gl.createProgram();
+  gl.attachShader(shaderProgram, vertShader);
+  gl.attachShader(shaderProgram, fragShader);
+  gl.linkProgram(shaderProgram);
+  gl.useProgram(shaderProgram);
+
+  // Powiązanie shaderów z buforem wierzchołków
+  gl.bindBuffer(gl.ARRAY_BUFFER, vertex_buffer);
+  var coord = gl.getAttribLocation(shaderProgram, "coordinates");
+  gl.vertexAttribPointer(coord, 3, gl.FLOAT, false, 0, 0);
+  gl.enableVertexAttribArray(coord);
+
+  // Ustawianie skalowania
+  var scaling = gl.getUniformLocation(shaderProgram, 'scaling');
+  gl.uniform4f(scaling, 2.0, 1.0, 1.0, 0.0); // Sx=2, Sy=1, Sz=1
+
+  // Rysowanie koła
+  gl.clearColor(0.5, 0.5, 0.5, 0.9);
+  gl.enable(gl.DEPTH_TEST);
+  gl.clear(gl.COLOR_BUFFER_BIT);
+  gl.viewport(0, 0, canvas.width, canvas.height);
+  gl.drawArrays(gl.LINE_LOOP, 0, liczbaPunktow + 1);
+
+</script>
+
+</html>
